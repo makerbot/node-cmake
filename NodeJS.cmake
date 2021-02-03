@@ -360,6 +360,7 @@ function(nodejs_init)
                 ${TEMP}/${NODEJS_DEFAULT_NAME}-${VERSION}-headers
                 ${TEMP}/${NODEJS_DEFAULT_NAME}-${VERSION}
                 ${TEMP}/${NODEJS_DEFAULT_NAME}
+                ${TEMP}/node_headers
                 ${TEMP}
             NO_DEFAULT_PATH
         )
@@ -570,13 +571,7 @@ function(add_nodejs_module NAME)
             "Suggested alternative: '${${NAME}_SYMBOL_CHECK}'"
         )
     endif()
-    # Make sure node is initialized (variables set) before defining the module
-    if(NOT NODEJS_INIT)
-        message(FATAL_ERROR
-            "Node.js has not been initialized. "
-            "Call nodejs_init before adding any modules"
-        )
-    endif()
+
     # In order to match node-gyp, we need to build into type specific folders
     # ncmake takes care of this, but be sure to set CMAKE_BUILD_TYPE yourself
     # if invoking CMake directly
